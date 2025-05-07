@@ -74,7 +74,7 @@ The templates are designed to provide enough information about the date-related 
 
 The templates are also designed to support a _parsing_ capability. In this scenario, the service can use a template to extract a time range from an individual URI that the service has already obtained. Assuming that the service could obtain a bulk listing of many URIs from a data collection, this parse-to-get-time-range operation could be performed on all discovered URIs in order to determine which URIs are relevant for a particular time range. Figure 2 illustrates both the generation and parsing activities. The figure emphasizes that the focus of the parsing capability is the interpretation of a single URI. How a service uses this ability is up to the service.
 
-[[Image:images/generation_and_parsing.png|thumb|left|600px|Figure 2: The URI Template Specification captures enough information about file names to support the both the generation of URIs given a time range and the parsing of URIs to obtain a time range for each one.]]<br style="clear:both"/>
+<img src="images/generation_and_parsing.png" width="600px" alt="Figure 2">The URI Template Specification captures enough information about file names to support both the generation of URIs given a time range and the parsing of URIs to obtain a time range for each one.
 
 Both parsing and generation capabilities are important, because each capability alone is insufficient for some cases. For example, if a listing of available files cannot be obtained (perhaps the web server does not allow directory listings), then the generation capability is the only way to get started -- the service must first generate a list of potential filenames, and then possibly do an existence test done for each generated URI. But sometimes the generation of URIs is not possible because the file names contain characters that cannot be described or known a-priori. Unpredictable file name components include elements like mission elapsed time integers, unusually formatted version numbers, or even strange processing ids that end up looking like random numbers. In these cases, the URIs must be obtained (from some type of listing mechanism available for that URI), and then the template can be used to parse each URI to obtain a time range. The random characters are skipped over in the parsing process since they do not affect the time. Note that if file names cannot be generated AND a listing is unavailable, then of course no access is possible.
 
@@ -110,7 +110,7 @@ There is enough information in this example template for a service to generate j
 
 ## 1.2 Parsing Example
 
-If a filename contains unpredictable characters, the URI template may specify this using a wildcard character, and then it is impossible to generate URIs for this collection of files. But the filenames can still be parsed in order to determine the time range covered by the file. Consider these files:
+If a filename contains unpredictable characters, the URI template may specify this using a wildcard character, and then it is impossible to generate URIs for this collection of files. But the filenames can still be parsed to determine the time range covered by the file. Consider these files:
 
 ```
 http://example.com/2015/data_2015_361_id79242.cdf
@@ -120,7 +120,7 @@ http://example.com/2016/data_2016_001_id54040.cdf
 http://example.com/2016/data_2016_002_id13487.cdf
 ```
 
-The template `http://example.com/$Y/data_$Y_$j_id$x.cdf` would be used to describe these files, where the `$x` code indicates the wildcard element in the filename. Given this template, a service would be expected to obtain a listing of available URIs, and parse them with knowledge from the template to see which URIs fall inside a user-specified time range. For the time range 2015-362T00:00:00 to 2016-001T00:00:00, the following files would be included:
+The template `http://example.com/$Y/data_$Y_$j_id$x.cdf` would describe these files, where the `$x` code indicates the wildcard element in the filename. Given this template, a service would be expected to obtain a listing of available URIs, and parse them with knowledge from the template to see which URIs fall inside a user-specified time range. For the time range 2015-362T00:00:00 to 2016-001T00:00:00, the following files would be included:
 
 ```
 http://example.com/2015/data_2015_364_id49304.cdf
@@ -129,7 +129,7 @@ http://example.com/2015/data_2015_365_id93039.cdf
 
 ## 1.3 Time Range Boundary Issues
 
-In the Parsing Example above, note that no files from 2016 are included in the results list. This is because the time range provided has an overlap of zero seconds with data in 2016, but this type of boundary condition may vary from service to service, since the URI template spec does not specify how services treat user input values and boundary values. It is suggested that services treat the time boundaries of the data files as slightly fuzzy, so it might make sense to add some safety padding to a user's request, so that slightly more files than requested are returned. But again, this is a service specific detail. The URI template spec only indicates what the time range is for each URI in the dataset.
+In the Parsing Example above, note that no files from 2016 are included in the results list. This is because the time range provided has an overlap of zero seconds with data in 2016, but this type of boundary condition may vary from service to service, since the URI template spec does not specify how services treat user input values and boundary values. It is suggested that services treat the time boundaries of the data files as slightly fuzzy, so it might make sense to add some safety padding to a user's request, so that slightly more files than requested are returned. But again, this is a service-specific detail. The URI template spec only indicates the time range for each URI in the dataset.
 
 # 2 Basic Syntax
 
@@ -143,11 +143,11 @@ Some codes allow or require modifiers that change the characteristics or behavio
 
 The modifier values are restricted to be one of:
 * a signed integer
-* an integer followed by one of these single letter date codes: `Y, m, d, H, M, S`
-* any alpha numeric string, i.e., one or more numbers, letters or underscores and also `:` and `.` and `-`  (ISO8601 strings meet this criteria)
-* a single quoted string
+* an integer followed by one of these single-letter date codes: `Y, m, d, H, M, S`
+* any alpha-numeric string, i.e., one or more numbers, letters or underscores and also `:` and `.` and `-`  (ISO8601 strings meet this criteria)
+* a single-quoted string
 
-If the field code is longer than one character, or if modifiers are present, the entire field must be surrounded with parentheses. Parentheses may be used for single-character codes, but this is not required.
+If the field code is longer than one character or if modifiers are present, the entire field must be surrounded by parentheses. Parentheses may be used for single-character codes, but this is not required.
 
 This chart illustrates the basic syntax for date fields of varying complexity:
 
@@ -161,7 +161,7 @@ This chart illustrates the basic syntax for date fields of varying complexity:
 
 The simplest field is just a marker character followed by a single-character code, as in `$Y`, where the uppercase 'Y' is an actual code that denotes a field to be interpreted as a 4-digit year. For any single-character code, parentheses are not required, but can be used, as in `$(Y)`.
 
-The most commonly used codes are (see the [next section](#3-full-list-of-field-codes) for complete list):
+The most commonly used codes are (see the [next section](#3-full-list-of-field-codes) for a complete list):
 
 * `$Y` zero-padded four digit year
 * `$j` zero-padded three digit day of year
@@ -172,7 +172,7 @@ The most commonly used codes are (see the [next section](#3-full-list-of-field-c
 * `$S` zero-padded two digit second
 * `$N` zero-padded nine digit nanoseconds
 
-Consider this example template: `data_$Y-$(m;pad=none)-$d.dat`. The file names will have year `$Y`, month number `$m`, and day-of-month `$d` elements. The modifier on the month field indicates that the month numbers are not zero-padded. The day-of-month numbers are zero-padded, because this is the default behavior of the `$d` code. File names generated from this template would look like this:
+Consider this example template: `data_$Y-$(m;pad=none)-$d.dat`. The file names will have year `$Y`, month number `$m`, and day-of-month `$d` elements. The modifier on the month field indicates that the month numbers are not zero-padded. The day-of-month numbers are zero-padded because this is the default behavior of the `$d` code. File names generated from this template would look like this:
 
 ```
 data_2015-9-28.txt  (notice that the month 9 value is not zero-padded)
@@ -192,7 +192,7 @@ Here are a few more examples of possible templates:
 
 # 3 Full List of Field Codes
 
-As mentioned in the introduction, a few of the codes will preclude a template from being used to generate URIs, namely `x` and `v`. This restriction is also highlighted at the beginning of the description section for these codes.
+As mentioned in the introduction, a few of the codes, namely `x` and `v`, will prevent a template from being used to generate URIs. This restriction is also highlighted at the beginning of the description section for these codes.
 
 > We take an aside here to point out that the full set of date codes in this spec allows file names that are potentially very strange or obscure. This specification is _not_ meant to define a convention for naming files in future data collections. The spec was designed to capture as many of file naming schemes that are found "in the wild," and many of these represent poor choices that resulted in directory or file names that are overly compact, confusing, or difficult to process in an automated way. The basic principle is to keep filenames intuitive and uniform, but this spec is not the place to look for recommended naming conventions. A complete set of recommended naming conventions for space physics is described in [SPDF's File Naming Recommendations](https://spdf.gsfc.nasa.gov/guidelines/filenaming_recommendations.html).
 
@@ -205,10 +205,10 @@ Common modifiers:
 * `begin` - (optional) indicates that this field belongs to the begin time (use if, for example, a filename has begin and end times in it). It is assumed that times refer to the beginning of the interval, and this should be used when end time fields precede the begin field.
 * `end` - (optional) indicates that this field belongs to the end time (if a filename has begin and end times in it). All fields after this are considered to be part of the end time.
 * `delta=<integer with optional unit>` - (optional) specifies the duration or span covered by this file or the increment of the code to get the next filename.
-* `div=<integer>` - (optional) the field will be divided when formatting and multiplied when parsing, to support blocks of numbers. For example `$(j;div=100)XX` is first digit (0,1,2,3) of the day of year, and has a width of 100 days. `$(N,div=1000)` would be microseconds, but `$(subsec;places=6)` should still be used.
-* `sparse` - (optional) indicates that many of the generated URIs may not actually exist; this is likely to be needed for the smaller time values, such as seconds `$subsec`, where it is unlikely that there is a new data file for every millisecond
-* `phasestart=<ISO8601 date>` - (optional except when `delta` in year or day field) when to start the delta. The default is the smallest value that the field may take in which `delta` is used (e.g., 0 for `H`, 1 for `j`).
-* `shift=<integer with optional unit>` - (optional) if a date value in the filename is incorrect or does not represent the actual date range covered by the file content, this keyword can adjust the time value by a constant offset; this is somewhat complicated and is explained further below  verify this is ok -- used to be just:** shift the generated end date by this amount
+* `div=<integer>` - (optional) the field will be divided when formatting and multiplied when parsing, to support blocks of numbers. For example, `$(j;div=100)XX` is the first digit (0,1,2,3) of the day of year, and has a width of 100 days. `$(N,div=1000)` would be microseconds, but `$(subsec;places=6)` should still be used.
+* `sparse` - (optional) indicates that many of the generated URIs may not exist; this is likely to be needed for the smaller time values, such as seconds `$subsec`, where it is unlikely that there is a new data file for every millisecond
+* `phasestart=<ISO8601 date>` - (optional except when `delta` in year or day field) when to start the delta. The default is the smallest value the field may take in which `delta` is used (e.g., 0 for `H`, 1 for `j`).
+* `shift=<integer with optional unit>` - (optional) if a date value in the filename is incorrect or does not represent the actual date range covered by the file content, this keyword can adjust the time value by a constant offset; this is somewhat complicated and is explained further below.
 
 The units of `delta` and `shift` default to the unit of the code that it modifies. Units may be specified for the codes `$m $b $d $j $H $M $S $subsec`, and the allowed units are `Y, m, d, H, M, or S`. 
 
@@ -221,9 +221,10 @@ data_2009_07.dat
 data_2010_01.dat
 data_2010_07.dat
 ```
-In order to indicate this 6 month duration for each file, the template would need to be
 
-`data_$Y_$(m;delta=6).dat`   (Note: you can specify the units as months `data_$Y_$(m;delta=6m).dat` but this is redundant since the units default to months in this case.)
+To indicate this 6-month duration for each file, the template would need to be
+
+`data_$Y_$(m;delta=6).dat` (Note: you can specify the units as months `data_$Y_$(m;delta=6m).dat` but this is redundant since the units default to months in this case.)
 
 Leaving out the delta `data_$Y_$m.dat` would indicate monthly files (i.e, files of one month duration).
 
@@ -247,8 +248,9 @@ Any of these templates would describe these files:
 
 _shift example_
 
-Sometimes file names contain date elements for a begin time and and end time. Often, the interpretation of the date elements for the end time may be different than for the begin time. As an example, consider a file with the name `data_2005132_2005145.txt`. The start time of the file is almost certainly the beginning of day 132 in 2005, but the end time is ambiguous. Is it the start or end of day 145? If it is the end of the day, then the `shift` modifier is needed to communicate that the end time is shifted from the plain date value represented in the file name. The template for files like this one would be:
-`data_$Y$j_$(Y;end)($j;shift=1).txt`. Note that the `end` modifier is sticky in that once used, it applies to all subsequent fields.
+Sometimes file names contain date elements for a begin time and an end time. Often, the interpretation of the date elements for the end time may be different than for the begin time. As an example, consider a file with the name `data_2005132_2005145.txt`. The start time of the file is almost certainly the beginning of day 132 in 2005, but the end time is ambiguous. Is it the start or end of day 145? If it is the end of the day, then the `shift` modifier is needed to communicate that the end time is shifted from the plain date value represented in the file name. The template for files like this one would be:
+
+`data_$Y$j_$(Y;end)($j;shift=1).txt`. Note that the `end` modifier is sticky because it applies to all subsequent fields once used.
 
 ## 3.2 Y
 
@@ -378,7 +380,7 @@ When something interesting happens, data are logged for 10 seconds. Template is 
 
 ## 3.11 N
 
-Integer nanoseconds. This is used as a place holder for the last component of the seven-integer decomposed representation of the time, `[ Y, m, d, H, M, S, N ]`, but may also be used with the "div" modifier to represent subseconds. Note though this is more concise than subsec (see below), this subsec should still be used. (`$(N;div=1000)` is the same as `$(subsec;places=6)`).
+Integer nanoseconds. This is used as a placeholder for the last component of the seven-integer decomposed representation of the time, `[ Y, m, d, H, M, S, N ]`, but may also be used with the "div" modifier to represent subseconds. Note that this is more concise than subsec (see below), but this subsec should still be used. (`$(N;div=1000)` is the same as `$(subsec;places=6)`).
 
 ## 3.12 periodic
 
@@ -492,7 +494,7 @@ Example:
 * Filename: `data_2015-244T17:45:03.123456`
 * Template: `data_$Y-$jT$H:$M:$S.$(subsec;places=6)`
 
-Note that if this template was used for generation, it would create one filename for every millisecond, which is likely to be an overwhelming number of URIs, most of which are not likely to exist. It is recommended to use the `sparse` modifier with this field, as in `data_$Y-$jT$H:$M:$S.$(subsec;places=6;sparse)`. This modifier is not meant to prevent generation, but to indicate that many of the generated URIs may not exist. Another way to handle this kind of filename might be to give up on the sub-seconds accuracy altogether, and just use `$x` for the sub-seconds: `data_$Y-$jT$H:$M:$S.$x`. The use of `$x` does prevent URIs from being generated.
+Note that if this template were used for generation, it would create one filename for every millisecond, which is likely to be an overwhelming number of URIs, most of which are not likely to exist. Using the `sparse` modifier with this field is recommended, as in `data_$Y-$jT$H:$M:$S.$(subsec;places=6;sparse)`. This modifier is not meant to prevent generation, but to indicate that many of the generated URIs may not exist. Another way to handle this kind of filename might be to give up on the sub-seconds accuracy altogether, and just use `$x` for the sub-seconds: `data_$Y-$jT$H:$M:$S.$x`. The use of `$x` does prevent URIs from being generated.
 
 ## 3.16 v
 
@@ -509,11 +511,11 @@ Modifiers:
 
 Other allowed types are `int` and `alpha` (for alphanumeric) where the sort order is the ASCII byte sort order of these types.
 
-Another common version mechanism is the so-called 'dot notation' where the version string is a set of dot-separated numbers, as in `2.0` or `1.0.0`. This is referred to as `type=sep`. With dot-separated notation, you could also get versions like `1.1.13`, where this is a higher version than `1.1.7`, even though a string sort would put the `1.1.13` first. If the separator is something other than a dot, the modifier `separator` can be used.
+Another common version mechanism is the so-called 'dot notation', where the version string is a set of dot-separated numbers, as in `2.0` or `1.0.0`. This is referred to as `type=sep`. With dot-separated notation, you could also get versions like `1.1.13`, which is a higher version than `1.1.7`, even though a string sort would put the `1.1.13` first. If the separator is something other than a dot, the modifier `separator` can be used.
 
 Finally, to restrict the files found to be of at least a certain version (or less than a certain version), the `ge` or `lt` modifiers can be used. This would be used when you have a dataset where one set of files (say version `1.x`) requires reader A, and version `2.x` requires reader B. Then a reader could be paired with a finder that only finds versions that are `lt=2.0` and then `ge=2.0` would be used for reader B.
 
-Note that the comparison for floats is different than the comparison for sep. (For `sep`, 3.14 is greater than 3.3; but for float this is not the case.)
+Note that the comparison for floats is different than the comparison for sep. (For `sep`, 3.14 is greater than 3.3; but for float, this is not the case.)
 
 ## 3.17 `x`
 
@@ -530,7 +532,7 @@ Modifiers:
 
 **Example**
 
-Consider a dataset that has yearly directories and then filenames with a single digit year in the filename and also a three digit day of year.
+Consider a dataset that has yearly directories and then filenames with a single-digit year in the filename and also a three-digit day of year.
 
 ```
 http://example.com/data/1984/mag_4364.txt
@@ -549,7 +551,7 @@ The wildcard could be made more specific using the `regex` modifier:
 `http://example.com/data/$Y/mag_$(x;regex='\d')$j.txt`
 (Recall that `\d` matches a single digit, 0-9.)
 
-Also, consider these files (from a real-world example) that have three kinds of id codes in the filenames. The first two are 5 digit number and the other is a string that is always one of "in" or "on" or "is" or "os".
+Also, consider these files (from a real-world example) that have three kinds of ID codes in the filenames. The first two are 5-digit numbers, and the other is a string that is always one of "in" or "on" or "is" or "os."
 
 ```
 http://example.com/data/2008/2008_03_04/46564/fa_k0_ees_46564_in.gif
@@ -588,7 +590,7 @@ The default time width is one unit of the smallest time code in the URI. For exa
  data_2000_01_01.txt
  data_2000_01_02.txt
 
-If the time width is different than the default, it can be manually specified using the `delta` modifier. When URIs are parsed, the duration will be set to the time duration given by the value of the `delta` modifier. For example, the template
+If the time width differs from the default, it can be manually specified using the `delta` modifier. When URIs are parsed, the duration will be set to the time duration given by the value of the `delta` modifier. For example, the template
 
 `data_$Y_$m_$d_$(H;delta=6).txt`
 
@@ -626,7 +628,7 @@ data_2000_01_02_18.txt
 
 The hour, minute, second, and also the month date fields have natural defaults for their starting points (hours start at a day boundary, minutes at an hour boundary, seconds start at the minute boundary, and months start at the year boundary), so that the start of the phase is always clear when interpreting delta modifiers for these date elements.
 
-But for year and day fields, the starting point of the delta is arbitrary and therefore must be stated explicitly using the `phasestart` modifier in order for generation to be possible. Year and day fields with a delta and no `phasestart` modifier can only be used for only parsing of URIs.
+But for year and day fields, the starting point of the delta is arbitrary and therefore must be stated explicitly using the `phasestart` modifier in order for generation to be possible. Year and day fields with a delta and no `phasestart` modifier can only be used for the parsing of URIs.
 
 Example:
 
@@ -646,7 +648,7 @@ data_2013_01_07.txt
 
 ## 4.2 Begin and end time in filename
 
-If the filename has both a begin and end date in the filename, then when parsing the filename, these two dates give the time range for that URI.
+If the filename has both a begin and end date, then when parsing the filename, these two dates give the time range for that URI.
 
 When generating URIs of this type, the end time must be inferred from the start time. The default delta to apply to the start time is assumed to be one unit of the smallest date field. This can be overridden by specifying a `delta` modifier on the begin time.
 
@@ -704,7 +706,7 @@ data_001.txt
 data_002.txt
 ```
 
-The coarse-grained, context date values can be hard-coded into the template so that a complete date range can be identified when parsing the URI. This template `data_$(j;Y=2004).txt` disambiguates the date by providing a context year for the day of year values. (Evidently, the users of this data all know that it was from 2004.) The URI template is then able to correctly parse the URIs and obtain a fully defined date range. Also, if you wanted to generate URIs given this template and a date range, the generation mechanism would know to only generate files for 2004.
+The coarse-grained, context date values can be hard-coded into the template to identify a complete date range when parsing the URI. This template `data_$(j;Y=2004).txt` disambiguates the date by providing a context year for the day of year values. (Evidently, the users of this data all know that it was from 2004.) The URI template is then able to correctly parse the URIs and obtain a fully defined date range. Also, if you wanted to generate URIs given this template and a date range, the generation mechanism would know to only generate files for 2004.
 
 Allowed context date elements are: `Y m d j H M S`
 
