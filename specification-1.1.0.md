@@ -43,7 +43,9 @@ Previous versions: [1.0.0](specification-1.0.0.mediawiki)
 
 A URI template is a string that contains special fields. The special fields allow a time range to be associated with each URI in the collection. This specification describes the special fields needed to capture the file and directory naming conventions used for data and images in heliophysics science data archives but could describe any set of URIs containing date elements that follow a broad range of conventions. Note that the templates themselves are not URIs, but instead they simply describe how URIs are generated or interpreted.
 
-In order to be describable by a URI template, a data collection must have files and directories that are named such that the date elements in the names unambiguously identify the time range covered by each file. The templates allow an association to be made between an individual URI and a time range. Conceptually, this is similar to indexing data files by time range.
+This specification was developed by a collaboration among developers who were using templates of similar design, including [CDAWeb](https://cdaweb.gsfc.nasa.gov), [Autoplot](https://autoplot.org), and [plotFlipper](https://sd-www.jhuapl.edu/rbspice/data/plotFlipper/rbspicePlot.html).
+
+To be describable by a URI template, a data collection must have files and directories named such that the date elements in the names unambiguously identify the time range covered by each file. The templates allow an association between an individual URI and a time range. Conceptually, this is similar to indexing data files by time range.
 
 Consider this collection of daily files with the year, month, and month day in the file names:
 
