@@ -21,7 +21,7 @@ The URI template would be <code>data_$Y_$m_$d.dat</code>.
 
 The intended use for the templates is within applications or services that can locate files for various data sources given a time range (Figure 1). 
 
-[[images/template_use_overview.png|thumb|600px|left|Figure 1: The templates are designed to describe the file names in data collections in order to support generic file discovery mechanisms.]]<br style="clear:both"/>
+<img src="images/template_use_overview.png" width="600px" alt="Figure 1">Figure 1: The templates are designed to describe the file names in data collections in order to support generic file discovery mechanisms.<br style="clear:both"/>
 
 The template specification itself does not indicate how a service goes about finding files, but it is designed to support multiple ways of associating a time range with a URI (and thus finding out which URIs are actually present in the user's time range). Therefore the specification supports two key capabilities:
 
