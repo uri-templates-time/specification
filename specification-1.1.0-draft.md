@@ -1,5 +1,7 @@
 <center><font size="+2"><b>Draft 1.1 URI Template Standard</b></font></center>
 
+Previous versions: [1.0.0](specification-1.0.0.mediawiki)
+
 <!-- TOC -->
 [1 Introduction](#1-introduction)<br/>
 &nbsp;&nbsp;&nbsp;[1.1 Generation Example](#11-generation-example)<br/>
@@ -36,10 +38,6 @@
 &nbsp;&nbsp;&nbsp;[6.1 Extending the standard](#61-extending-the-standard)<br/>
 &nbsp;&nbsp;&nbsp;[6.2 Reserved Codes](#62-reserved-codes)
 <!-- \TOC -->
-
-This page will be used for the development of future versions of the standard.
-
-Previous versions: [1.0.0](specification-1.0.0.mediawiki)
 
 # 1 Introduction
 
