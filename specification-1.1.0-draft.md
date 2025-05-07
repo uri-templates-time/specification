@@ -39,7 +39,7 @@
 
 This page will be used for the development of future versions of the standard.
 
-Previous versions: []
+Previous versions: [1.1.0](specification-1.0.0.mediawiki)
 
 # 1 Introduction
 
