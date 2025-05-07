@@ -21,7 +21,7 @@ The URI template would be <code>data_$Y_$m_$d.dat</code>.
 
 The intended use for the templates is within applications or services that can locate files for various data sources given a time range (Figure 1). 
 
-[[media/template_use_overview.png|thumb|600px|left|Figure 1: The templates are designed to describe the file names in data collections in order to support generic file discovery mechanisms.]]<br style="clear:both"/>
+[[images/template_use_overview.png|thumb|600px|left|Figure 1: The templates are designed to describe the file names in data collections in order to support generic file discovery mechanisms.]]<br style="clear:both"/>
 
 The template specification itself does not indicate how a service goes about finding files, but it is designed to support multiple ways of associating a time range with a URI (and thus finding out which URIs are actually present in the user's time range). Therefore the specification supports two key capabilities:
 
@@ -34,7 +34,7 @@ The templates are designed to provide enough information about the date-related 
 
 The templates are also designed to support a '''parsing''' capability. In this scenario, the service can use a template to extract a time range from an individual URI that the service has already obtained. Assuming that the service could obtain a bulk listing of many URIs from a data collection, this parse-to-get-time-range operation could be performed on all discovered URIs in order to determine which URIs are relevant for a particular time range. Figure 2 illustrates both the generation and parsing activities. The figure emphasizes that the focus of the parsing capability is the interpretation of a single URI. How a service uses this ability is up to the service.
 
-[[media/generation_and_parsing.png|thumb|left|600px|Figure 2: The URI Template Specification captures enough information about file names to support the both the generation of URIs given a time range and the parsing of URIs to obtain a time range for each one.]]<br style="clear:both"/>
+[[images/generation_and_parsing.png|thumb|left|600px|Figure 2: The URI Template Specification captures enough information about file names to support the both the generation of URIs given a time range and the parsing of URIs to obtain a time range for each one.]]<br style="clear:both"/>
 
 Both parsing and generation capabilities are important, because each capability alone is insufficient for some cases.  For example, if a listing of available files cannot be obtained (perhaps the web server does not allow directory listings), then the generation capability is the only way to get started -- the service must first generate a list of potential filenames, and then possibly do an existence test done for each generated URI. But sometimes the generation of URIs is not possible because the file names contain characters that cannot be described or known apriori. Unpredictable file name components include elements like mission elapsed time integers, unusually formatted version numbers, or even strange processing ids that end up looking like random numbers. In these cases, the URIs must be obtained (from some type of listing mechanism available for that URI), and then the template can be used to parse each URI to obtain a time range. The random characters are skipped over in the parsing process since they do not affect the time. Note that if file names cannot be generated AND a listing is unavailable, then of course no access is possible.
 
